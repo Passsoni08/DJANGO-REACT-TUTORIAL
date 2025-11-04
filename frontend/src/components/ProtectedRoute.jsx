@@ -4,11 +4,11 @@
 // wrapper for a protected route
 // we'll need a authorization token to actually access this route
 
-import { Navigate } from "react-router-dom"
-import { jwtDecode } from "jwt-decode"
-import api from "../api"
-import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants"
-import { useState, useEffect } from "react"
+import { Navigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import api from "../api";
+import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
+import { useState, useEffect } from "react";
 
 
 // we need to check if we're authorized before we allow someone to access this route
@@ -39,19 +39,19 @@ function ProtectedRoute({ children }) {
 
     //check if we need to refresh the token or we're good to go
     const auth = async () => {
-        const token = localStorage, getItem(ACCESS_TOKEN)
+        const token = localStorage.getItem(ACCESS_TOKEN);
         if (!token) {
             setIsAuthorized(false)
             return
         }
-        const decoded = jwtDecode(token) //decode the token and give access to the value and the expiration date
-        const tokenExpiration = decoded.exp //
-        const now = Date.now() / 1000 // date in seconds
+        const decoded = jwtDecode(token); //decode the token and give access to the value and the expiration date
+        const tokenExpiration = decoded.exp; //
+        const now = Date.now() / 1000; // date in seconds
 
         if (tokenExpiration < now) {
-            await refreshToken()
+            await refreshToken();
         } else {
-            setIsAuthorized(true)
+            setIsAuthorized(true);
         }
     }
 
